@@ -1,0 +1,22 @@
+{
+  "name": "ifdmilestoneproject",
+  "version": "1.0.0",
+  "description": "A dashboard to visualize some exercise data from the strava api.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harryphelps/RunningDataVisualisation.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harryphelps/RunningDataVisualisation/issues"
+  },
+  "homepage": "https://github.com/harryphelps/RunningDataVisualisation#readme",
+  "dependencies": {
+    "strava-v3": "^1.14.0"
+  }
+}
