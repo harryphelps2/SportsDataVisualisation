@@ -6,21 +6,24 @@ function makeGraphs(error, sportsData) {
 	
 var ndx = crossfilter(sportsData);
 
-var name_dim = ndx.dimension(dc.pluck('type'));
-var total_spend_per_person = name_dim.group();
+number_of_sports(ndx);
 
-dc.barChart("#chart-here")
+dc.renderAll();
+}
+
+function number_of_sports(ndx) {
+    var name_dim = ndx.dimension(dc.pluck('type'));
+    var total_activities_per_sport = name_dim.group();
+
+    dc.barChart("#numberOfSports")
     .width(300)
     .height(150)
     .margins({top: 10, right: 50, bottom: 30, left: 50})
     .dimension(name_dim)
-    .group(total_spend_per_person)
+    .group(total_activities_per_sport)
     .transitionDuration(500)
     .x(d3.scale.ordinal())
     .xUnits(dc.units.ordinal)
     .xAxisLabel("Sports")
     .yAxis().ticks(4);
-
-dc.renderAll();
-
-}
+};
