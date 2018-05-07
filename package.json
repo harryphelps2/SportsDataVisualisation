@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/harryphelps/RunningDataVisualisation#readme",
   "dependencies": {
+    "fs": "0.0.1-security",
     "strava-v3": "^1.14.0"
   }
 }
