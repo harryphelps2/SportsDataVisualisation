@@ -8,6 +8,7 @@ var ndx = crossfilter(sportsData);
 
 run_type_pie_chart(ndx);
 number_of_sports_over_time(ndx, sportsData);
+average_cadence_against_average_speed(ndx);
 
 
 
@@ -52,3 +53,31 @@ function number_of_sports_over_time(ndx, sportsData) {
             .yAxisLabel("Distance / m")
             .yAxis().ticks(4);
 };
+
+function average_cadence_against_average_speed(ndx){
+    var cadence_dim = ndx.dimension(dc.pluck('average_cadence'));
+    
+    var min_cadence = cadence_dim.bottom(1)[0].average_cadence;
+    var max_cadence = cadence_dim.top(1)[0].average_cadence;
+
+
+    var max_speed_dim = ndx.dimension(function(d) {
+        return [d.average_cadence, d.max_speed];
+    });
+
+    var speed_group = max_speed_dim.group();
+
+    dc.scatterPlot("#scatterPlot")
+        .width(768)
+        .height(480)
+        .x(d3.scale.linear().domain([min_cadence, max_cadence]))
+        .brushOn(false)
+        .symbolSize(8)
+        .clipPadding(10)
+        .yAxisLabel("Average speed")
+        .dimension(cadence_dim)
+        .group(speed_group);
+}
+
+
+
