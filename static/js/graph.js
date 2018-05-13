@@ -6,8 +6,10 @@ function makeGraphs(error, sportsData) {
 	
 var ndx = crossfilter(sportsData);
 
-number_of_sports_over_time(ndx, sportsData);
 run_type_pie_chart(ndx);
+number_of_sports_over_time(ndx, sportsData);
+
+
 
 dc.renderAll();
 }
@@ -38,7 +40,7 @@ function number_of_sports_over_time(ndx, sportsData) {
     console.log(minDate)
     var maxDate = date_dim.top(1)[0].start_date;
 
-        dc.lineChart("#numberOfSports")
+        dc.barChart("#numberOfSports")
             .width(1000)
             .height(300)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
