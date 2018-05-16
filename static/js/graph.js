@@ -2,6 +2,8 @@ queue()
 	.defer(d3.json, "data/sportsData.json")
 	.await(makeGraphs);
 	
+const earthCircumference = 40075000;
+
 function makeGraphs(error, sportsData) {
 	
 var ndx = crossfilter(sportsData);
@@ -10,7 +12,8 @@ run_type_pie_chart(ndx);
 number_of_sports_over_time(ndx, sportsData);
 average_cadence_against_average_speed(ndx);
 total_distance(ndx);
-
+percentage_round_world(ndx);
+// total_elevation(ndx);
 
 dc.renderAll();
 }
@@ -31,7 +34,6 @@ function number_of_sports_over_time(ndx, sportsData) {
     var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse;
     sportsData.forEach(function(d){
         d.start_date = parseDate(d.start_date);
-        console.log(typeof(d.start_date))
     })
 
     var date_dim = ndx.dimension(dc.pluck('start_date'));
@@ -101,11 +103,59 @@ function total_distance(ndx) {
 //need to get it to return a 
 
     dc.numberDisplay("#distanceRan")
+        .formatNumber(d3.format(".1f"))
         .valueAccessor(function(d){
-            return d.value
+            return d.value / 1000
         })
         .group(totalDistance);
 };
+
+
+function percentage_round_world(ndx) {
+    var distance_dim = ndx.dimension(function(d){
+        return d.type
+    });
+
+    var totalDistance = distance_dim.group().reduceSum(function(d){
+        return d.distance;
+    });
+  
+    print_filter(totalDistance)
+    console.log(totalDistance)
+
+//need to get it to return a 
+
+    dc.numberDisplay("#percentageRoundWorld")
+        .formatNumber(d3.format(".2%"))
+        .valueAccessor(function(d){
+            return d.value / earthCircumference;
+        })
+        .group(totalDistance);
+};
+
+
+// function total_elevation(ndx) {
+//     var type_dim = ndx.dimension(function(d){
+//         return d.type
+//     });
+
+//     var totalElevation = type_dim.group().reduceSum(function(d){
+//         return d.total_elevation_gain;
+//     });
+  
+//   //returning NaN
+
+//     print_filter(totalElevation)
+//     console.log(totalElevation)
+
+// //need to get it to return a 
+
+//     dc.numberDisplay("#elevationGained")
+//         .valueAccessor(function(d){
+//             return d.value 
+//         })
+//         .group(totalElevation);
+// };
 
    
 
