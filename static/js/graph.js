@@ -9,7 +9,7 @@ var ndx = crossfilter(sportsData);
 run_type_pie_chart(ndx);
 number_of_sports_over_time(ndx, sportsData);
 average_cadence_against_average_speed(ndx);
-
+total_distance(ndx);
 
 
 dc.renderAll();
@@ -32,7 +32,6 @@ function number_of_sports_over_time(ndx, sportsData) {
     sportsData.forEach(function(d){
         d.start_date = parseDate(d.start_date);
         console.log(typeof(d.start_date))
-        //2016-12-28T18:12:35Z
     })
 
     var date_dim = ndx.dimension(dc.pluck('start_date'));
@@ -77,7 +76,38 @@ function average_cadence_against_average_speed(ndx){
         .yAxisLabel("Average speed")
         .dimension(cadence_dim)
         .group(speed_group);
+};
+
+function print_filter(filter) {
+    var f=eval(filter);
+    if (typeof(f.length) != "undefined") {}else{}
+    if (typeof(f.top) != "undefined") {f=f.top(Infinity);}else{}
+    if (typeof(f.dimension) != "undefined") {f=f.dimension(function(d) { return "";}).top(Infinity);}else{}
+    console.log(filter+"("+f.length+") = "+JSON.stringify(f).replace("[","[\n\t").replace(/}\,/g,"},\n\t").replace("]","\n]"));
 }
+
+function total_distance(ndx) {
+    var distance_dim = ndx.dimension(function(d){
+        return d.type
+    });
+
+    var totalDistance = distance_dim.group().reduceSum(function(d){
+        return d.distance;
+    });
+  
+    print_filter(totalDistance)
+    console.log(totalDistance)
+
+//need to get it to return a 
+
+    dc.numberDisplay("#distanceRan")
+        .valueAccessor(function(d){
+            return d.value
+        })
+        .group(totalDistance);
+};
+
+   
 
 
 
