@@ -3,6 +3,7 @@ queue()
 	.await(makeGraphs);
 	
 const earthCircumference = 40075000;
+const earthRadius = 6378000;
 
 function makeGraphs(error, sportsData) {
 	
@@ -42,7 +43,6 @@ function number_of_sports_over_time(ndx, sportsData) {
     var date_dim = ndx.dimension(dc.pluck('start_date'));
     var total_distance_per_month = date_dim.group().reduceSum(dc.pluck('distance'));
     var minDate = date_dim.bottom(1)[0].start_date;
-    console.log(minDate)
     var maxDate = date_dim.top(1)[0].start_date;
 
         dc.barChart("#numberOfSports")
@@ -123,8 +123,8 @@ function percentage_round_world(ndx) {
         return d.distance;
     });
   
-    print_filter(totalDistance)
-    console.log(totalDistance)
+    // print_filter(totalDistance)
+    // console.log(totalDistance)
 
 //need to get it to return a 
 
@@ -139,27 +139,36 @@ function percentage_round_world(ndx) {
 var apiKey = "AIzaSyB9XZkjWuLN5EpJoMqk9e5SVkCQc4-mC3k"
 
 function initMap() {
+
+var homeLat = 51.4;
+var homeLong = -0.00098;
     var map = new google.maps.Map(document.getElementById('map'), {
       zoom: 3,
-      center: {lat: 0, lng: -180},
+      center: {lat: homeLat, lng: homeLong},
       mapTypeId: 'terrain'
     });
 
-    var flightPlanCoordinates = [
-      {lat: 37.772, lng: -122.214},
-      {lat: 21.291, lng: -157.821},
-      {lat: -18.142, lng: 178.431},
-      {lat: -27.467, lng: 153.027}
+
+totalDistance = 2609939;
+var finishLat = homeLat - (totalDistance / earthRadius) * (180/Math.PI);
+
+console.log(finishLat);
+
+
+
+    var pathCoordinates = [
+      {lat: homeLat, lng: homeLong},
+      {lat: finishLat, lng: homeLong}
     ];
-    var flightPath = new google.maps.Polyline({
-      path: flightPlanCoordinates,
+    var crowFliesPath = new google.maps.Polyline({
+      path: pathCoordinates,
       geodesic: true,
       strokeColor: '#FF0000',
       strokeOpacity: 1.0,
       strokeWeight: 2
     });
 
-    flightPath.setMap(map);
+    crowFliesPath.setMap(map);
     }
 
 // function total_elevation(ndx) {
