@@ -11,12 +11,14 @@ var apiKey = "AIzaSyB9XZkjWuLN5EpJoMqk9e5SVkCQc4-mC3k"
 var homeLat = 51.4;
 var homeLong = -0.00098;
 
+//Functions
+
 function makeGraphs(error, sportsData) {
 	
     var ndx = crossfilter(sportsData);
 
     run_type_pie_chart(ndx);
-    number_of_sports_over_time(ndx, sportsData);
+    distance_against_time(ndx, sportsData);
     average_cadence_against_average_speed(ndx);
     total_distance(ndx);
 
@@ -30,13 +32,13 @@ function run_type_pie_chart(ndx){
 
         dc.pieChart("#commutePieChart")
             .height(330)
-            .radius(90)
+            .radius(150)
             .transitionDuration(1500)
             .dimension(type_dim)
             .group(total_distance_by_type);
 }
 
-function number_of_sports_over_time(ndx, sportsData) {
+function distance_against_time(ndx, sportsData) {
     var parseDate = d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse;
     
     sportsData.forEach(function(d){
@@ -48,9 +50,9 @@ function number_of_sports_over_time(ndx, sportsData) {
     var minDate = date_dim.bottom(1)[0].start_date;
     var maxDate = date_dim.top(1)[0].start_date;
 
-        dc.barChart("#numberOfSports")
-            .width(1000)
-            .height(300)
+        dc.barChart("#distanceAgainstTime")
+            .width(1200)
+            .height(550)
             .margins({top: 10, right: 50, bottom: 30, left: 50})
             .dimension(date_dim)
             .group(total_distance_per_month)
@@ -58,7 +60,7 @@ function number_of_sports_over_time(ndx, sportsData) {
             .x(d3.time.scale().domain([minDate, maxDate]))
             .xAxisLabel("Month")
             .yAxisLabel("Distance / m")
-            .yAxis().ticks(4);
+            .yAxis().ticks(2);
 };
 
 function average_cadence_against_average_speed(ndx){
@@ -74,8 +76,8 @@ function average_cadence_against_average_speed(ndx){
 
     var speed_group = max_speed_dim.group();
 
-    dc.scatterPlot("#scatterPlot")
-        .width(768)
+    dc.scatterPlot("#cadenceAgainstSpeed")
+        .width(600)
         .height(480)
         .x(d3.scale.linear().domain([min_cadence, max_cadence]))
         .brushOn(false)
@@ -109,7 +111,6 @@ function total_distance(ndx) {
     dc.numberDisplay("#distanceRan")
         .formatNumber(d3.format(".1f"))
         .valueAccessor(function(d){
-        //Put initMap function in here to access the length value
             initMap(d.value)
             return d.value / 1000
         })
@@ -131,9 +132,6 @@ function initMap(length) {
       mapTypeId: 'terrain'
     });
 
-//Need to set the total distance from the other function as a global variable to be able to pass in to this. 
-//Or just pass in the function?
-//Need the function to pass  
     totalDistance = length;
     var finishLat = homeLat - (totalDistance / earthRadius) * (180/Math.PI);
 

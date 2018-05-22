@@ -6,15 +6,14 @@ A single page application that will calculate the total distance and elevation c
 
 ##Features
 
-###Summary box
-1. Year filter
-2. Total distance
-3. Total elevation
-4. Max speed
-5. Average pace
-
 ###Commute breakdown
+Shows the proportion of running distance as part of commute runs. 
 
-###Time spent in each training zone
+###Cadence against average speed
+Scatter graph plots the cadence against the average speed to see what the ideal cadence is.
+
+###Distance against time
+Shows the run distance over the months I have been using strava.
 
 ###Map of distance around the world
+Shows a google map of the world and plots a polyline of totla distance starting at my house to see how far I would have travelled as the crow flies.

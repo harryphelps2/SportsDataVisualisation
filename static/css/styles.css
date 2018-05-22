@@ -1,0 +1,29 @@
+h1 {
+text-align: center;
+padding: 3rem;
+}
+
+.number {
+font-size: 3rem;
+padding: 1rem;
+}
+
+#commutePieChart {
+	padding: 1rem;
+}
+
+#cadenceAgainstSpeed {
+	padding: 1rem;
+	margin: .5rem;
+}
+
+#distanceAgainstTime {
+	margin: .5rem;
+}
+
+#map {
+	height: 800px;
+	width: 1300px;
+	padding: 2rem;
+	margin: 2rem;
+}
