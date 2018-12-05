@@ -1,3 +1,5 @@
+// Code to fetch data from the strava api
+// Recevied help from mentor, downloaded data and added it to static data file
 var Strava = require('strava-v3');
 var data;
 const strava_access_token = {
