@@ -2,11 +2,11 @@
 
 Link to live site: https://harryphelps2.github.io/SportsDataVisualisation/
 
-A dashboard to visualize some exercise data from the Strava api. A single page application that will calculate the total distance and elevation covered, show a pie chart of the amount of time spent doing different sports, a stacked bar chart of time spent doing each sport with time spent in each zone and a map of all the routes.
+A dashboard to visualize some exercise data from the Strava API. A single page application that will calculate the total distance and elevation covered, show a pie chart of the amount of time spent doing different sports, a stacked bar chart of time spent doing each sport with time spent in each zone and a map of all the routes.
  
 ## UX
  
-This website is designed for athletes to gain insight into their training achievements as a whole giving them some facts they can show off with (eg: I've ran 20% around the world in total). It is designed for the commuter runner who trains during the week and races at the weekend.
+This website is designed for athletes to gain insight into their training achievements as a whole giving them some facts they can show off with (eg: I've ran 20% around the world in total). It is designed for the commuter runner who trains during the week and races at the weekend and who owns a GPS exercise watch with a Cadence function (steps per minute).
 
 - As a user I want to see a breakdown of my commute runs.
 
@@ -16,7 +16,7 @@ This website is designed for athletes to gain insight into their training achiev
 
 - I want to adjust that data to see how far I have travelled as part of my commute runs.
 
-- I want to know where I would be in the world if I had been running in a straight line from my house.
+- I want to know where I would be in the world if I had been running in a straight line from my house so I can impress my running friends and maybe a few of my non-running friends.
 
 ## Features
 
@@ -30,7 +30,7 @@ This website is designed for athletes to gain insight into their training achiev
 
 - Distance as an absolute value and a percentage around the world.
 
-- Map of distance around the world: Shows a google map of the world and plots a polyline of total distance starting at my house to see how far I would have travelled as the crow flies (currently in Algeria).
+- Map of distance around the world: Shows a google map of the world and plots a polyline of total distance starting at my house to see how far I would have travelled as the crow flies (currently in Algeria 👍).
 
 ### Features Left to Implement
 
